@@ -12,20 +12,26 @@ const userSchema = new mongoose.Schema({
     },
   },
 });
-
+/* User Actions */
 export const userModel = mongoose.model("User", userSchema);
 
 export const getUsers = () => userModel.find();
-export const getUserByEmail = (email: string) => {
-  userModel.findOne({ email });
-};
+/* export const getUserByEmail = (email: string) => userModel.findOne({ email }); */
+/* export const getUserByEmail = (email: string) => {
+  const user = userModel.findOne({ email });
+  
+  return user;
+  
+}; */
+
+export const getUserByEmail = (email: string) => userModel.findOne({ email });
+
 export const getUserBySessionToken = (sessionToken: string) =>
   userModel.findOne({
     "authentication.sessionToken": sessionToken,
   });
-export const getUserById = (Id: string) => {
-  userModel.findById(Id);
-};
+export const getUserById = (Id: string) => userModel.findById(Id);
+
 export const createUser = (values: Record<string, any>) =>
   new userModel(values).save().then((user) => user.toObject());
 export const deleteUserById = (id: string) => {
